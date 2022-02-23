@@ -2,14 +2,28 @@ const express = require("express");
 const User = require("../models/user.model");
 const curdController = require("./curd.controller");
 
+//Sending email 
 const { welcomeMail } = require("../utils/sendEmail");
 const Eventemitter = require("events");
 const eventEmitter = new Eventemitter();
 
-
+//Router
 const router = express.Router();
+
+//Validations
 const { userRegistration } = require("../middlewares/validations");
 const { body , validationResult } = require("express-validator");
+
+//Authentications
+const jwt = require("jsonwebtoken");
+require("dotenv").config()
+
+
+//Functions for creating token 
+const newToken = (user) =>{
+    return jwt.sign({user} , process.env.JWT_SECRET_KEY);
+}
+
 
 //Writting APIS
 router.post("", userRegistration() , async (req, res)=>{
@@ -22,9 +36,17 @@ router.post("", userRegistration() , async (req, res)=>{
 
         let user = await User.findOne({email: req.body.email});
         if(user){
+            //Update users with new data
             return res.status(500).send({message: "You are already egistered with us"});
         }
+
+
+        //If user not exist then create users
         user = await User.create(req.body);
+
+        //Create token with user details
+        const token = newToken(user);
+
 
          //Send welcome Email
          eventEmitter.on("user signup" , await welcomeMail);
@@ -36,7 +58,7 @@ router.post("", userRegistration() , async (req, res)=>{
          })
 
 
-        return res.status(201).send(user);
+        return res.status(201).send({user, token});
     }
     catch(e){
         return res.status(500).send({message: e.message});
