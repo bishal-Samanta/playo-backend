@@ -20,6 +20,7 @@ const connect = require("./configs/db");
 
 const venueDetailsController = require("./controllers/venueDetails.controllers");
 const eventdetailsController = require("./controllers/eventDetails.controller");
+const userController = require("./controllers/user.controller");
 
 
 
@@ -30,6 +31,7 @@ const eventdetailsController = require("./controllers/eventDetails.controller");
 
 app.use("/venues" , venueDetailsController);
 app.use("/events" , eventdetailsController);
+app.use("/login" , userController)
 
 
 

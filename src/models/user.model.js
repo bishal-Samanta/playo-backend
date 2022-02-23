@@ -2,11 +2,22 @@
 const mongoose = require("mongoose");
 
 
+// let userObj = {
+//     firstName: obj.f,
+//     lastName: obj.l,
+//     email: obj.e,
+//     mobileNumber: mobnum
+// }
+
 
 //Create Schema
 const userSchema = new mongoose.Schema(
     {
-        name: { type: String, required: true},              //
+        firstName: { type: String, required: true},
+        lastName: { type : String, required: true },
+        email: {type: String , required: true},
+        mobileNumber: {type: Number , required: true}
+                      
      
     },
     {
