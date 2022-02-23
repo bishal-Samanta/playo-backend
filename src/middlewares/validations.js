@@ -34,11 +34,11 @@ const contactusValidation = () =>{
 
 const userRegistration = () =>{
    return [ 
-       body("firstName").isString().isLength({min: 3, max: 20}).withMessage("Name should be between 3-20 charecters"),
+       body("firstName").isString().isLength({min: 3, max: 20}).withMessage("Fist Name should be between 3-20 charecters"),
 
-       body("lastName").isString().isLength({min: 3, max: 20}).withMessage("Name should be between 3-20 charecters"),
+       body("lastName").isString().isLength({min: 3, max: 20}).withMessage("Last Name should be between 3-20 charecters"),
 
-       body("email").isEmail(),
+       body("email").isEmail().withMessage("Email should be valid"),
 
        body("mobileNumber").isMobilePhone().withMessage("Mobile number should be valid")
    ]
