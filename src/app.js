@@ -19,7 +19,7 @@ const connect = require("./configs/db");
 //Import Controllers start
 
 const venueDetailsController = require("./controllers/venueDetails.controllers");
-
+const eventdetailsController = require("./controllers/eventDetails.controller");
 
 
 
@@ -29,6 +29,7 @@ const venueDetailsController = require("./controllers/venueDetails.controllers")
 //Use Controllers with route start
 
 app.use("/venues" , venueDetailsController);
+app.use("/events" , eventdetailsController);
 
 
 
