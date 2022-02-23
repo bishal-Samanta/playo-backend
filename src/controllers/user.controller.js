@@ -21,7 +21,7 @@ require("dotenv").config()
 
 //Functions for creating token 
 const newToken = (user) =>{
-    return jwt.sign({user} , process.env.JWT_SECRET_KEY);
+    return jwt.sign({user} , "secrect_key");
 }
 
 
