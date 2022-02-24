@@ -34,6 +34,7 @@ router.post("/status" , (req, res) =>{
         console.log(document)
         if(document.status == "captured"){
             res.send("Payment Success");
+            
         }
         else{
             res.send("Payment Not Success");
