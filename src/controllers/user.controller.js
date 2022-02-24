@@ -11,7 +11,7 @@ const eventEmitter = new Eventemitter();
 const router = express.Router();
 
 //Validations
-const { userRegistration } = require("../middlewares/validations");
+const { userRegistration , userUpdate } = require("../middlewares/validations");
 const { body , validationResult } = require("express-validator");
 
 //Authentications
@@ -69,7 +69,52 @@ router.post("", userRegistration() , async (req, res)=>{
 
 router.get("", curdController(User).getAll);
 router.get("/:id", curdController(User).getOne);
-router.patch("/:id", curdController(User).updateOne);
+
+
+
+//Writing patch api
+router.patch("/:id", userUpdate() , async (req, res) =>{
+    try{
+        //Validation Code 
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(500).json({erros: errors.array()});
+        }
+
+        //Update 
+        let user = await User.findByIdAndUpdate(req.params.id , req.body , { new: true })
+
+
+        //Send welcome Email
+         eventEmitter.on("user signup" , await welcomeMail);
+
+         eventEmitter.emit("user signup" , {
+             from: "work.bishalsamanta@gmail.com",
+             to: user.email,
+             user,
+         })
+
+
+         //Token
+         let token = newToken(user);
+         //console.log(token)
+         
+
+         return res.status(201).send({user , token});
+
+    }
+    catch(e){
+        return res.status(500).send({message: e.message});
+    }
+});
+
+
+
+
+
+
+
+
 router.delete("/:id", curdController(User).deleteOne);
 
 

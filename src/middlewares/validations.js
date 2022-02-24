@@ -50,8 +50,20 @@ const userRegistration = () =>{
 }
 
 
+const userUpdate = () =>{
+    return [ 
+        body("firstName").isString().isLength({min: 3, max: 20}).withMessage("Fist Name should be between 3-20 charecters"),
+ 
+        body("lastName").isString().isLength({min: 3, max: 20}).withMessage("Last Name should be between 3-20 charecters"),
+ 
+        body("email").isEmail().withMessage("Email should be valid"),
+       
+    ]
+ }
 
 
 
 
-module.exports = { contactusValidation , userRegistration }
+
+
+module.exports = { contactusValidation , userRegistration , userUpdate }
