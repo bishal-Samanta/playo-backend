@@ -6,6 +6,7 @@ const cors = require("cors")
 
 //Express stuff end
 const path = require("path");
+app.use(express.urlencoded({extended: false}))
 
 app.use(
     cors({
@@ -38,6 +39,7 @@ const connect = require("./configs/db");
 const venueDetailsController = require("./controllers/venueDetails.controllers");
 const eventdetailsController = require("./controllers/eventDetails.controller");
 const userController = require("./controllers/user.controller");
+const paymentController = require("./controllers/payment.controller");
 
 
 
@@ -49,6 +51,7 @@ const userController = require("./controllers/user.controller");
 app.use("/venues" , venueDetailsController);
 app.use("/events" , eventdetailsController);
 app.use("/login" , userController)
+app.use("/order" , paymentController)
 
 
 
