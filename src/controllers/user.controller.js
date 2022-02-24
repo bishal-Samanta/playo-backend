@@ -38,7 +38,7 @@ router.post("", userRegistration() , async (req, res)=>{
         if(user){
             //Update users with new data
             let token = newToken(user);
-            return res.status(500).send({user , token});
+            return res.status(201).send({user , token});
         }
 
 
