@@ -25,7 +25,7 @@ const newToken = (user) =>{
 }
 
 
-//Writting APIS
+//Writting APIS when user first logged in
 router.post("", userRegistration() , async (req, res)=>{
     try{
         //code 
@@ -34,10 +34,10 @@ router.post("", userRegistration() , async (req, res)=>{
             return res.status(500).json({erros: errors.array()});
         }
 
-        let user = await User.findOne({email: req.body.email});
+        let user = await User.findOne({mobileNumber: req.body.mobileNumber });
         if(user){
             //Update users with new data
-            return res.status(500).send({message: "You are already egistered with us"});
+            return res.status(500).send(user);
         }
 
 
