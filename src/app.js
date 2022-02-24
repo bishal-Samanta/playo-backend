@@ -2,9 +2,26 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
+const cors = require("cors")
 
 //Express stuff end
 const path = require("path");
+
+app.use(
+    cors({
+        origin: "*",
+    })
+)
+
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 
 
 
@@ -20,6 +37,7 @@ const connect = require("./configs/db");
 
 const venueDetailsController = require("./controllers/venueDetails.controllers");
 const eventdetailsController = require("./controllers/eventDetails.controller");
+const userController = require("./controllers/user.controller");
 
 
 
@@ -30,6 +48,7 @@ const eventdetailsController = require("./controllers/eventDetails.controller");
 
 app.use("/venues" , venueDetailsController);
 app.use("/events" , eventdetailsController);
+app.use("/login" , userController)
 
 
 
@@ -53,3 +72,5 @@ app.listen(port, async ()=>{
 } )
 
 //End server code
+
+
