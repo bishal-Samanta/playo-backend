@@ -37,7 +37,8 @@ router.post("", userRegistration() , async (req, res)=>{
         let user = await User.findOne({mobileNumber: req.body.mobileNumber });
         if(user){
             //Update users with new data
-            return res.status(500).send(user);
+            let token = newToken(user);
+            return res.status(500).send({user , token});
         }
 
 
@@ -45,17 +46,17 @@ router.post("", userRegistration() , async (req, res)=>{
         user = await User.create(req.body);
 
         //Create token with user details
-        const token = newToken(user);
+        let token = newToken(user);
 
 
          //Send welcome Email
-         eventEmitter.on("user signup" , await welcomeMail);
+        //  eventEmitter.on("user signup" , await welcomeMail);
 
-         eventEmitter.emit("user signup" , {
-             from: "work.bishalsamanta@gmail.com",
-             to: user.email,
-             user,
-         })
+        //  eventEmitter.emit("user signup" , {
+        //      from: "work.bishalsamanta@gmail.com",
+        //      to: user.email,
+        //      user,
+        //  })
 
 
         return res.status(201).send({user, token});
