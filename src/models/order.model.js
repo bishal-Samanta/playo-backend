@@ -23,8 +23,8 @@ const orderSchema = new mongoose.Schema(
         cost: {type: Number , required: true},
         court: {type: String , required: true},
         duration: {type: Number, required: true},
-        order_id: {type:String , required: true},
-        payment_id:{type: String , required: true},
+        order_id: {type:String , required: true , unique: true },
+        payment_id:{type: String , required: true , unique: true },
         time: {type: String , required: true},
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
