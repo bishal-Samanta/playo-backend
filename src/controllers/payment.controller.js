@@ -13,7 +13,7 @@ var orderid ;
 
 router.post("/create" , (req, res)=>{
     let options = {
-        amount: 50000,  // amount in the smallest currency unit
+        amount: req.body.price,  // amount in the smallest currency unit
         currency: "INR",
         receipt: "order_rcptid_11"
     }
