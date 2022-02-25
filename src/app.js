@@ -40,6 +40,7 @@ const venueDetailsController = require("./controllers/venueDetails.controllers")
 const eventdetailsController = require("./controllers/eventDetails.controller");
 const userController = require("./controllers/user.controller");
 const paymentController = require("./controllers/payment.controller");
+const orderController = require("./controllers/order.controller");
 
 
 
@@ -52,6 +53,7 @@ app.use("/venues" , venueDetailsController);
 app.use("/events" , eventdetailsController);
 app.use("/login" , userController)
 app.use("/order" , paymentController)
+app.use("/orders" , orderController );
 
 
 
